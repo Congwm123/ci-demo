@@ -6,10 +6,19 @@ on:
     branches: [main]
 
   workflow_dispatch:
-  
+    inputs:
+      configuration:
+        description: "Build Configuration"
+        type: choice
+        options: [Release, Debug]
+        default: Release
+
 jobs:
   build-and-test:
     runs-on: ubuntu-latest
+
+    env:
+      BUILD_CONFIG: ${{ inputs.configuration || 'Release' }}
 
     steps:
       - name: checkout code
@@ -18,7 +27,13 @@ jobs:
       - name: Setup .NET
         uses: actions/setup-dotnet@v5
         with:
-          dotnet-version: '10.0.x'
+          dotnet-version: "10.0.x"
+
+      - name: Show trigger Info
+        run: |
+          echo "Triggered by: ${{ github.event_name }}"
+          echo "Actor: ${{ github.actor }}"
+          echo "Configuration: $BUILD_CONFIG"
 
       - name: Restore
         run: dotnet restore

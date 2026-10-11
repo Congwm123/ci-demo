@@ -1,0 +1,8 @@
+<Solution>
+  <Folder Name="/src/">
+    <Project Path="src/CiDemo.Core/CiDemo.Core.csproj" />
+  </Folder>
+  <Folder Name="/tests/">
+    <Project Path="tests/CiDemo.Tests/CiDemo.Tests.csproj" />
+  </Folder>
+</Solution>
